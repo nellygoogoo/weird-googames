@@ -29,6 +29,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       cursor: pointer;
       transition: transform 0.2s;
+      user-select: none; /* Prevent text selection */
     }
     .game-card:hover {
       transform: scale(1.05);
@@ -41,16 +42,6 @@
     .game-screen {
       display: none;
     }
-    button.back-btn {
-      margin: 10px;
-      padding: 8px 16px;
-      font-size: 1em;
-      cursor: pointer;
-      border-radius: 5px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-    }
   </style>
 </head>
 <body>
@@ -58,19 +49,19 @@
   <div class="game-grid">
     <div class="game-card" onclick="loadGame('punchOrPet')">Punch or Pet?</div>
     <div class="game-card" onclick="loadGame('blameTheIntern')">Blame the Intern</div>
-    <div class="game-card" onclick="loadGame('guessTheirJob')">Guess Their Job</div>
-    <div class="game-card">Swipe a Planet</div>
-    <div class="game-card">Is That a Law?</div>
-    <div class="game-card">How Would You Die Here?</div>
-    <div class="game-card">Invent a Useless Invention</div>
-    <div class="game-card">Vote on Nonsense</div>
-    <div class="game-card">What Would You Hoard?</div>
-    <div class="game-card">Cursed History</div>
-    <div class="game-card">Moral Dilemma Generator</div>
+    <div class="game-card" onclick="loadGame('guessJob')">Guess Their Job</div>
+    <div class="game-card" onclick="loadGame('swipePlanet')">Swipe a Planet</div>
+    <div class="game-card" onclick="loadGame('isThatALaw')">Is That a Law?</div>
+    <div class="game-card" onclick="loadGame('howWouldYouDie')">How Would You Die Here?</div>
+    <div class="game-card" onclick="loadGame('inventUseless')">Invent a Useless Invention</div>
+    <div class="game-card" onclick="loadGame('voteNonsense')">Vote on Nonsense</div>
+    <div class="game-card" onclick="loadGame('whatWouldYouHoard')">What Would You Hoard?</div>
+    <div class="game-card" onclick="loadGame('cursedHistory')">Cursed History</div>
+    <div class="game-card" onclick="loadGame('moralDilemma')">Moral Dilemma Generator</div>
   </div>
 
   <div class="game-screen" id="gameScreen">
-    <button class="back-btn" onclick="goBack()">⬅ Back</button>
+    <button onclick="goBack()">⬅ Back</button>
     <iframe id="gameFrame"></iframe>
   </div>
 
@@ -81,7 +72,118 @@
       const frame = document.getElementById('gameFrame');
       screen.style.display = 'block';
 
-      if (gameId === 'punchOrPet') {
-        frame.srcdoc = `
-          <h2>🐶 Punch or Pet?</h2>
-          <p>This raccoon just knocked over your
+      switch(gameId) {
+        case 'punchOrPet':
+          frame.srcdoc = `
+            <h2>🐶 Punch or Pet?</h2>
+            <p>This raccoon just knocked over your trash can. What do you do?</p>
+            <button onclick="alert('You chose violence.')">👊 Punch</button>
+            <button onclick="alert('You pet it. It now lives in your attic.')">🤗 Pet</button>
+          `;
+          break;
+
+        case 'blameTheIntern':
+          frame.srcdoc = `
+            <h2>😬 Blame the Intern</h2>
+            <p>The office coffee machine exploded. Who’s at fault?</p>
+            <button onclick="alert('Intern fired. Coffee still bad.')">☕ Intern</button>
+            <button onclick="alert('CEO denies everything.')">💼 CEO</button>
+            <button onclick="alert('The vending machine is now CEO.')">🍫 Vending Machine</button>
+          `;
+          break;
+
+        // Placeholder games with simple alerts:
+        case 'guessJob':
+          frame.srcdoc = `
+            <h2>🤔 Guess Their Job</h2>
+            <p>Can you guess what this person does for a living?</p>
+            <button onclick="alert('You guessed right!')">Guess 1</button>
+            <button onclick="alert('Nope, try again!')">Guess 2</button>
+          `;
+          break;
+
+        case 'swipePlanet':
+          frame.srcdoc = `
+            <h2>🌍 Swipe a Planet</h2>
+            <p>Swipe left or right to keep or discard planets.</p>
+            <button onclick="alert('Planet kept!')">Swipe Right</button>
+            <button onclick="alert('Planet discarded!')">Swipe Left</button>
+          `;
+          break;
+
+        case 'isThatALaw':
+          frame.srcdoc = `
+            <h2>📜 Is That a Law?</h2>
+            <p>Decide if this is a real law or not.</p>
+            <button onclick="alert('Yep, it\'s a real law!')">Real</button>
+            <button onclick="alert('Nope, fake law!')">Fake</button>
+          `;
+          break;
+
+        case 'howWouldYouDie':
+          frame.srcdoc = `
+            <h2>💀 How Would You Die Here?</h2>
+            <p>Pick your fate in this strange place.</p>
+            <button onclick="alert('You slipped on a banana peel.')">Option 1</button>
+            <button onclick="alert('You were abducted by aliens.')">Option 2</button>
+          `;
+          break;
+
+        case 'inventUseless':
+          frame.srcdoc = `
+            <h2>🛠️ Invent a Useless Invention</h2>
+            <p>Choose your absurd invention idea.</p>
+            <button onclick="alert('A solar-powered flashlight.')">Idea 1</button>
+            <button onclick="alert('A screen door for a submarine.')">Idea 2</button>
+          `;
+          break;
+
+        case 'voteNonsense':
+          frame.srcdoc = `
+            <h2>🗳️ Vote on Nonsense</h2>
+            <p>Cast your vote on silly topics.</p>
+            <button onclick="alert('You voted for pineapple on pizza!')">Option A</button>
+            <button onclick="alert('You voted against pineapple on pizza!')">Option B</button>
+          `;
+          break;
+
+        case 'whatWouldYouHoard':
+          frame.srcdoc = `
+            <h2>📦 What Would You Hoard?</h2>
+            <p>Choose items to stockpile for the apocalypse.</p>
+            <button onclick="alert('You hoarded canned beans.')">Beans</button>
+            <button onclick="alert('You hoarded toilet paper.')">Toilet Paper</button>
+          `;
+          break;
+
+        case 'cursedHistory':
+          frame.srcdoc = `
+            <h2>📚 Cursed History</h2>
+            <p>Pick a cursed event from history.</p>
+            <button onclick="alert('The Great Spaghetti Flood!')">Event 1</button>
+            <button onclick="alert('The Invisible Cake Incident!')">Event 2</button>
+          `;
+          break;
+
+        case 'moralDilemma':
+          frame.srcdoc = `
+            <h2>⚖️ Moral Dilemma Generator</h2>
+            <p>Choose your ethical challenge.</p>
+            <button onclick="alert('You sacrificed the trolley!')">Dilemma 1</button>
+            <button onclick="alert('You let the trolley pass!')">Dilemma 2</button>
+          `;
+          break;
+
+        default:
+          frame.srcdoc = `<p>Game not found.</p>`;
+      }
+    }
+
+    function goBack() {
+      document.getElementById('gameScreen').style.display = 'none';
+      document.querySelector('.game-grid').style.display = 'grid';
+      document.getElementById('gameFrame').srcdoc = '';
+    }
+  </script>
+</body>
+</html>
