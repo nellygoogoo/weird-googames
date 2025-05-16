@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Let's Get Weird</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    h1 {
+      padding: 1em;
+      font-size: 2.5em;
+    }
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .game-card {
+      background: white;
+      border-radius: 10px;
+      padding: 30px 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .game-card:hover {
+      transform: scale(1.05);
+    }
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+    }
+    .game-screen {
+      display: none;
+    }
+    button.back-btn {
+      margin: 10px;
+      padding: 8px 16px;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Let's Get Weird 🎮</h1>
+  <div class="game-grid">
+    <div class="game-card" onclick="loadGame('punchOrPet')">Punch or Pet?</div>
+    <div class="game-card" onclick="loadGame('blameTheIntern')">Blame the Intern</div>
+    <div class="game-card" onclick="loadGame('guessTheirJob')">Guess Their Job</div>
+    <div class="game-card">Swipe a Planet</div>
+    <div class="game-card">Is That a Law?</div>
+    <div class="game-card">How Would You Die Here?</div>
+    <div class="game-card">Invent a Useless Invention</div>
+    <div class="game-card">Vote on Nonsense</div>
+    <div class="game-card">What Would You Hoard?</div>
+    <div class="game-card">Cursed History</div>
+    <div class="game-card">Moral Dilemma Generator</div>
+  </div>
+
+  <div class="game-screen" id="gameScreen">
+    <button class="back-btn" onclick="goBack()">⬅ Back</button>
+    <iframe id="gameFrame"></iframe>
+  </div>
+
+  <script>
+    function loadGame(gameId) {
+      document.querySelector('.game-grid').style.display = 'none';
+      const screen = document.getElementById('gameScreen');
+      const frame = document.getElementById('gameFrame');
+      screen.style.display = 'block';
+
+      if (gameId === 'punchOrPet') {
+        frame.srcdoc = `
+          <h2>🐶 Punch or Pet?</h2>
+          <p>This raccoon just knocked over your
